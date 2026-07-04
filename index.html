@@ -986,9 +986,10 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
 
   // ---- beat metronome at HALF tempo (~56 BPM), phase-locked to the music ----
   var BPM=112.34, BEAT=60/(BPM/2), T0=0.549, BEAT0=T0-Math.floor(T0/BEAT)*BEAT;
-  var acx=null, metroOn=false, nextBeat=0, metroTimer=null, mOffset=0;
+  var acx=null, metroOn=false, nextBeat=0, metroTimer=null, mOffset=-0.16;
   var beatDot=document.getElementById('beatDot');
-  try{ mOffset=parseFloat(localStorage.getItem('ordMetroOffset'))||0; }catch(e){ mOffset=0; }
+  try{ var _mv=localStorage.getItem('ordMetroOffset'); if(_mv!==null&&_mv!=='')mOffset=parseFloat(_mv); }catch(e){}
+  if(isNaN(mOffset))mOffset=-0.16;
   var mOffEl=document.getElementById('mOff'), sOffEl=document.getElementById('sOff');
   function showOff(){ var s=(mOffset>=0?'+':'')+Math.round(mOffset*1000)+'ms'; if(mOffEl)mOffEl.textContent=s; if(sOffEl)sOffEl.textContent=s; }
   showOff();
