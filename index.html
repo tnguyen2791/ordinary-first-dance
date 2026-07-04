@@ -101,6 +101,10 @@ h1 .amp{color:var(--rose)}
 .playbar select{border:0;border-radius:999px;padding:7px 10px;font-size:.82rem;font-weight:600;
   background:rgba(255,255,255,.16);color:#fff;cursor:pointer}
 .playbar select option{color:#2b2622}
+.mnudge{display:inline-flex;align-items:center;gap:4px;color:#eadfd2;font-size:.78rem}
+.mnudge button{background:rgba(255,255,255,.16);color:#fff;border:0;border-radius:6px;padding:3px 9px;font-size:.9rem;line-height:1;cursor:pointer;font-weight:700}
+.mnudge button:hover{background:rgba(255,255,255,.28)}
+.mnudge #mOff{min-width:46px;text-align:center;font-variant-numeric:tabular-nums}
 .playbar label{display:inline-flex;align-items:center;gap:6px;color:#eadfd2;cursor:pointer}
 .playbar input{accent-color:var(--gold);width:15px;height:15px}
 .playbar #nowplaying{color:#e9c893;font-size:.8rem;max-width:150px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -739,6 +743,9 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
   </label>
   <label><input type="checkbox" id="loopQueue"> Loop</label>
   <label><input type="checkbox" id="metro"> &#9835; Beat</label>
+  <span class="mnudge" title="Nudge the clicks earlier / later to lock onto the music">
+    <button id="mMinus" type="button">&minus;</button><span id="mOff">+0ms</span><button id="mPlus" type="button">+</button>
+  </span>
   <button class="ghost" id="stopPlay">&#9632; Stop</button>
   <span id="nowplaying"></span>
 </div>
@@ -928,9 +935,19 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
   stage.addEventListener('click',function(e){ if(e.target===stage)closeStage(); });
   document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&!stage.hidden)closeStage(); });
 
-  // ---- beat metronome at HALF the song tempo (~56 BPM: twice per bar, downbeat accented) ----
-  var BPM=112.35, BEAT=60/(BPM/2), T0=0.557, BEAT0=T0-Math.floor(T0/BEAT)*BEAT;
-  var acx=null, metroOn=false, nextBeat=0, metroTimer=null;
+  // ---- beat metronome at HALF tempo (~56 BPM), phase-locked to the music ----
+  var BPM=112.34, BEAT=60/(BPM/2), T0=0.549, BEAT0=T0-Math.floor(T0/BEAT)*BEAT;
+  var acx=null, srcNode=null, metroOn=false, nextBeat=0, metroTimer=null, mOffset=0;
+  try{ mOffset=parseFloat(localStorage.getItem('ordMetroOffset'))||0; }catch(e){ mOffset=0; }
+  var mOffEl=document.getElementById('mOff');
+  function showOff(){ if(mOffEl)mOffEl.textContent=(mOffset>=0?'+':'')+Math.round(mOffset*1000)+'ms'; }
+  showOff();
+  function ensureAudio(){
+    if(!acx){ try{acx=new (window.AudioContext||window.webkitAudioContext)();}catch(e){acx=null;} }
+    if(acx&&acx.state==='suspended')acx.resume();
+    // route the video's audio through the SAME engine so clicks & music share one clock/latency
+    if(acx&&sv&&!srcNode){ try{srcNode=acx.createMediaElementSource(sv);srcNode.connect(acx.destination);}catch(e){srcNode=null;} }
+  }
   function beatTime(i){ return BEAT0+i*BEAT; }
   function isDown(i){ return ((((i)%2)+2)%2)===0; }
   function tick(when,down){
@@ -944,22 +961,24 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
   }
   function metroSched(){
     if(!metroOn||!acx||!stagePlaying||sv.paused)return;
-    var ct=sv.currentTime, rate=sv.playbackRate||1, la=0.12;
+    var ct=sv.currentTime, rate=sv.playbackRate||1, la=0.15;
     if(beatTime(nextBeat)<ct-0.25||beatTime(nextBeat)>ct+2){ nextBeat=Math.ceil((ct-BEAT0)/BEAT); }
     while(beatTime(nextBeat)<=ct+la){
-      var when=acx.currentTime+Math.max(0,(beatTime(nextBeat)-ct)/rate);
+      var when=acx.currentTime+Math.max(0,(beatTime(nextBeat)-ct)/rate+mOffset);
       tick(when,isDown(nextBeat)); nextBeat++;
     }
   }
   document.getElementById('metro').addEventListener('change',function(e){
     metroOn=e.target.checked;
-    if(metroOn){
-      if(!acx){ try{acx=new (window.AudioContext||window.webkitAudioContext)();}catch(err){acx=null;} }
-      if(acx&&acx.state==='suspended')acx.resume();
+    if(metroOn){ ensureAudio();
       var ct=(sv&&sv.currentTime)||0; nextBeat=Math.ceil((ct-BEAT0)/BEAT);
       if(!metroTimer)metroTimer=setInterval(metroSched,25);
     } else if(metroTimer){ clearInterval(metroTimer); metroTimer=null; }
   });
+  function nudge(d){ mOffset=Math.max(-0.3,Math.min(0.3,mOffset+d)); try{localStorage.setItem('ordMetroOffset',mOffset);}catch(e){} showOff(); }
+  var mp=document.getElementById('mPlus'), mm=document.getElementById('mMinus');
+  if(mp)mp.addEventListener('click',function(){nudge(0.01);});
+  if(mm)mm.addEventListener('click',function(){nudge(-0.01);});
   updateCount();
   refresh();
 })();
