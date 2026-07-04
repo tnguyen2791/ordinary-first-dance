@@ -112,7 +112,12 @@ h1 .amp{color:var(--rose)}
 .stage[hidden]{display:none}
 .stage{position:fixed;inset:0;z-index:80;background:rgba(20,16,12,.92);backdrop-filter:blur(5px);
   display:flex;align-items:center;justify-content:center;padding:20px}
-.stage-inner{width:min(94vw,1180px);display:flex;flex-direction:column;gap:12px;align-items:center}
+.stage-inner{width:min(94vw,1180px);display:flex;flex-direction:column;gap:12px;align-items:center;position:relative}
+.beatdot{position:absolute;top:16px;left:16px;width:24px;height:24px;border-radius:50%;background:#fff;opacity:.18;
+  transform:scale(1);pointer-events:none;z-index:4;box-shadow:0 0 0 2px rgba(255,255,255,.35)}
+.beatdot.hit{animation:beatpulse .2s ease}
+.beatdot.hit.down{background:var(--gold);box-shadow:0 0 0 3px rgba(176,141,87,.5)}
+@keyframes beatpulse{0%{transform:scale(1.9);opacity:1}100%{transform:scale(1);opacity:.18}}
 .stage-inner video{width:100%;max-height:72vh;border-radius:14px;background:#000;box-shadow:0 12px 44px rgba(0,0,0,.5)}
 .stage-cap{color:#f4ece0;text-align:center;font-size:1rem;display:flex;flex-direction:column;align-items:center;gap:4px}
 #stageBars{background:var(--gold);color:#fff;padding:3px 11px;border-radius:999px;font-weight:700;font-size:.85rem}
@@ -242,7 +247,7 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
     <p class="title">Walk-on &amp; meet <span class="rtag both">both</span></p>
     <p class="lyric inst">instrumental intro</p>
     <p class="cap">Both walk on from opposite sides and meet in the center of the floor.</p>
-    
+    <p class="pnote"><b>&#127775; Coaching:</b> Walk in on the music, eyes on each other from the first step. Don&#x27;t rush to center — the entrance sets the whole tone.</p>
     <div class="controls">
       <label class="got"><input type="checkbox" class="chk" data-id="01"> Got it</label>
       <label class="queue"><input type="checkbox" class="pq" data-id="01" data-section="Entrance"> &#9654; Queue</label>
@@ -267,7 +272,7 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
     <p class="title">First hold &amp; settle <span class="rtag both">both</span></p>
     <p class="lyric">This town&#x27;s lost its faith</p>
     <p class="cap">Hands join into closed position; settle face-to-face and find the pulse.</p>
-    
+    <p class="pnote"><b>&#127775; Coaching:</b> Build the frame: her left hand on his shoulder, his right on her shoulder blade. Firm but soft; settle your weight before you move.</p>
     <div class="controls">
       <label class="got"><input type="checkbox" class="chk" data-id="02"> Got it</label>
       <label class="queue"><input type="checkbox" class="pq" data-id="02" data-section="Verse 1"> &#9654; Queue</label>
@@ -289,7 +294,7 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
     <p class="title">Closed-position sway <span class="rtag both">both</span></p>
     <p class="lyric">So if our time is running out</p>
     <p class="cap">Gentle side-to-side sway with a slow clockwise drift; small traveling steps.</p>
-    
+    <p class="pnote"><b>&#127775; Coaching:</b> Sway from the hips, knees soft, weight rolling foot to foot. Stay chest-to-chest with level heads — no bobbing.</p>
     <div class="controls">
       <label class="got"><input type="checkbox" class="chk" data-id="03"> Got it</label>
       <label class="queue"><input type="checkbox" class="pq" data-id="03" data-section="Verse 1"> &#9654; Queue</label>
@@ -314,7 +319,7 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
     <p class="title">Open-out &amp; underarm turn <span class="rtag follow">follow</span></p>
     <p class="lyric">…a masterpiece — oh, my, my</p>
     <p class="cap">He opens her to the &quot;V&quot; on a stationary raised arm; she opens out and turns underneath, back to face him.</p>
-    
+    <p class="pnote"><b>&#127775; Coaching:</b> He gives a clear, stable raised hand; she keeps her own balance and spots the turn, finishing square to him.</p>
     <div class="controls">
       <label class="got"><input type="checkbox" class="chk" data-id="04"> Got it</label>
       <label class="queue"><input type="checkbox" class="pq" data-id="04" data-section="Pre-chorus"> &#9654; Queue</label>
@@ -336,7 +341,7 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
     <p class="title">Dress-flourish fan-out <span class="rtag follow">follow</span></p>
     <p class="lyric">I take one look at you</p>
     <p class="cap">Solo presentation: arms wide, gown spread — a picture beat.</p>
-    
+    <p class="pnote"><b>&#127775; Coaching:</b> Commit to the shape — arms long, chin up, let the gown do the talking. Hold it a beat so the camera catches it.</p>
     <div class="controls">
       <label class="got"><input type="checkbox" class="chk" data-id="05"> Got it</label>
       <label class="queue"><input type="checkbox" class="pq" data-id="05" data-section="Pre-chorus"> &#9654; Queue</label>
@@ -358,7 +363,7 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
     <p class="title">Close embrace &amp; sway <span class="rtag both">both</span></p>
     <p class="lyric">You take me out of the ordinary</p>
     <p class="cap">Draw back together into a close embrace; sway with small quarter-turns.</p>
-    
+    <p class="pnote"><b>&#127775; Coaching:</b> Come back together softly, no bump. Rebuild the frame and breathe the phrase — this is the intimate reset.</p>
     <div class="controls">
       <label class="got"><input type="checkbox" class="chk" data-id="06"> Got it</label>
       <label class="queue"><input type="checkbox" class="pq" data-id="06" data-section="Pre-chorus"> &#9654; Queue</label>
@@ -383,7 +388,7 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
     <p class="title">Sway with quarter-turns <span class="rtag both">both</span></p>
     <p class="lyric">On the edge of your knife, stayin&#x27; drunk on your vine</p>
     <p class="cap">Continue the closed sway, rotating a little more as the chorus lands.</p>
-    
+    <p class="pnote"><b>&#127775; Coaching:</b> Small turns from the standing leg, don&#x27;t muscle them. Keep the box compact so you stay centered on the floor.</p>
     <div class="controls">
       <label class="got"><input type="checkbox" class="chk" data-id="07"> Got it</label>
       <label class="queue"><input type="checkbox" class="pq" data-id="07" data-section="Chorus 1"> &#9654; Queue</label>
@@ -405,7 +410,7 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
     <p class="title">Traveling rotation <span class="rtag both">both</span></p>
     <p class="lyric">So this world will be ordinary</p>
     <p class="cap">Semi-closed hold rotating and traveling across the floor; the gown sweeps.</p>
-    
+    <p class="pnote"><b>&#127775; Coaching:</b> Travel on the strong beats with the gown sweeping; he leads the direction, she trusts the rotation. Smooth, not fast.</p>
     <div class="controls">
       <label class="got"><input type="checkbox" class="chk" data-id="08"> Got it</label>
       <label class="queue"><input type="checkbox" class="pq" data-id="08" data-section="Chorus 1"> &#9654; Queue</label>
@@ -427,7 +432,7 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
     <p class="title">Rotation into the line <span class="rtag both">both</span></p>
     <p class="lyric">Somethin&#x27; &#x27;bout you, you can touch me to dust</p>
     <p class="cap">The rotation gathers and opens toward the big extension.</p>
-    
+    <p class="pnote"><b>&#127775; Coaching:</b> Gather your momentum and aim it toward the open line coming next — think &#x27;wind up&#x27; before the reach.</p>
     <div class="controls">
       <label class="got"><input type="checkbox" class="chk" data-id="09"> Got it</label>
       <label class="queue"><input type="checkbox" class="pq" data-id="09" data-section="Chorus 1"> &#9654; Queue</label>
@@ -449,7 +454,7 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
     <p class="title">The reach &amp; lunge (open line) <span class="rtag both">both</span><span class="sigbadge">&#9733; SIGNATURE</span></p>
     <p class="lyric">The angels up in the clouds are jealous…</p>
     <p class="cap">Wide two-arm extension into a shared lunge — hold the shape, then reel back in. SIGNATURE POSE.</p>
-    <p class="pnote"><b>Coach &amp; director:</b> Commit weight into the counterbalance and breathe out on the extension; eyes reach past your fingertips, not down.</p>
+    <p class="pnote"><b>&#127775; Coaching:</b> Commit weight into the counterbalance and breathe out on the extension; eyes reach past your fingertips, not down.</p>
     <div class="controls">
       <label class="got"><input type="checkbox" class="chk" data-id="10"> Got it</label>
       <label class="queue"><input type="checkbox" class="pq" data-id="10" data-section="Chorus 1"> &#9654; Queue</label>
@@ -474,7 +479,7 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
     <p class="title">Reel in &amp; promenade <span class="rtag both">both</span></p>
     <p class="lyric">…of what we found — hopeless hallelujah</p>
     <p class="cap">Gather from the line back to hold, then step into a promenade walk.</p>
-    
+    <p class="pnote"><b>&#127775; Coaching:</b> Draw her in on one smooth pull, then step out side-by-side — match stride length so you travel as one.</p>
     <div class="controls">
       <label class="got"><input type="checkbox" class="chk" data-id="11"> Got it</label>
       <label class="queue"><input type="checkbox" class="pq" data-id="11" data-section="Verse 2"> &#9654; Queue</label>
@@ -496,7 +501,7 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
     <p class="title">Walk-around &amp; underarm turn <span class="rtag follow">follow</span></p>
     <p class="lyric">Hope, this side of heaven</p>
     <p class="cap">Hand-to-hand, walking around each other with a calm underarm turn.</p>
-    
+    <p class="pnote"><b>&#127775; Coaching:</b> Keep one hand connected as you circle, eye contact the whole way. The turn is calm — let the music carry it.</p>
     <div class="controls">
       <label class="got"><input type="checkbox" class="chk" data-id="12"> Got it</label>
       <label class="queue"><input type="checkbox" class="pq" data-id="12" data-section="Verse 2"> &#9654; Queue</label>
@@ -521,7 +526,7 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
     <p class="title">Hand-to-hand walk-around <span class="rtag both">both</span></p>
     <p class="lyric">You take my breath away</p>
     <p class="cap">Keep one point of connection; circle each other, breathing room before the build.</p>
-    
+    <p class="pnote"><b>&#127775; Coaching:</b> Breathing room: soft knees, easy steps, connected through the fingertips. Save energy — the lift is coming.</p>
     <div class="controls">
       <label class="got"><input type="checkbox" class="chk" data-id="13"> Got it</label>
       <label class="queue"><input type="checkbox" class="pq" data-id="13" data-section="Bridge"> &#9654; Queue</label>
@@ -543,7 +548,7 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
     <p class="title">Gather toward center <span class="rtag both">both</span></p>
     <p class="lyric">Oh, my, my — taking me out</p>
     <p class="cap">Draw back together toward the center, weight settling for the build.</p>
-    
+    <p class="pnote"><b>&#127775; Coaching:</b> Close the distance deliberately; arrive at center with weight settled and frames ready. Set your feet for the build.</p>
     <div class="controls">
       <label class="got"><input type="checkbox" class="chk" data-id="14"> Got it</label>
       <label class="queue"><input type="checkbox" class="pq" data-id="14" data-section="Bridge"> &#9654; Queue</label>
@@ -568,7 +573,7 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
     <p class="title">Push-pull tension <span class="rtag both">both</span></p>
     <p class="lyric">I want you layin&#x27; me down…</p>
     <p class="cap">Hand-to-hand push-pull; he sets his base as she commits her weight toward him.</p>
-    
+    <p class="pnote"><b>&#127775; Coaching:</b> Play the give-and-take — he offers, she answers. Keep arms toned, not stiff, so the lead reads clearly.</p>
     <div class="controls">
       <label class="got"><input type="checkbox" class="chk" data-id="15"> Got it</label>
       <label class="queue"><input type="checkbox" class="pq" data-id="15" data-section="Build"> &#9654; Queue</label>
@@ -593,7 +598,7 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
     <p class="title">Rotating pickup lift <span class="rtag lead">lead</span><span class="sigbadge">&#9733; SIGNATURE</span></p>
     <p class="lyric inst">instrumental swell — the lift</p>
     <p class="cap">Feet off the floor, gown cascading, rotating together. SIGNATURE LIFT — soft surface first, lift with legs.</p>
-    <p class="pnote"><b>Coach &amp; director:</b> Lift from the legs, not the back; Follow holds frame and spots the window — trust over tension.</p>
+    <p class="pnote"><b>&#127775; Coaching:</b> Lift from the legs, not the back; Follow holds frame and spots the window — trust over tension.</p>
     <div class="controls">
       <label class="got"><input type="checkbox" class="chk" data-id="16"> Got it</label>
       <label class="queue"><input type="checkbox" class="pq" data-id="16" data-section="Lift 1"> &#9654; Queue</label>
@@ -615,7 +620,7 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
     <p class="title">Soft landing embrace <span class="rtag both">both</span></p>
     <p class="lyric inst">instrumental</p>
     <p class="cap">Lower gently into an embrace and recover the frame.</p>
-    
+    <p class="pnote"><b>&#127775; Coaching:</b> Lower her with control all the way down — no drop. Land into an embrace and share one breath before moving on.</p>
     <div class="controls">
       <label class="got"><input type="checkbox" class="chk" data-id="17"> Got it</label>
       <label class="queue"><input type="checkbox" class="pq" data-id="17" data-section="Lift 1"> &#9654; Queue</label>
@@ -640,7 +645,7 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
     <p class="title">Open-arms presentation <span class="rtag both">both</span></p>
     <p class="lyric">The angels up in the clouds</p>
     <p class="cap">Side-by-side, big arms, chin up — present to the room.</p>
-    
+    <p class="pnote"><b>&#127775; Coaching:</b> Big arms, open chest, chins up — present to the room like you mean it. Enjoy this &#x27;we did it&#x27; beat.</p>
     <div class="controls">
       <label class="got"><input type="checkbox" class="chk" data-id="18"> Got it</label>
       <label class="queue"><input type="checkbox" class="pq" data-id="18" data-section="Finale"> &#9654; Queue</label>
@@ -662,7 +667,7 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
     <p class="title">Solo spin away <span class="rtag follow">follow</span></p>
     <p class="lyric">…up in the clouds</p>
     <p class="cap">Follow spins out and back, setting up the final lift.</p>
-    
+    <p class="pnote"><b>&#127775; Coaching:</b> He sends, she spins with a clean spot and returns on balance. Keep it light and airy, setting up the finale.</p>
     <div class="controls">
       <label class="got"><input type="checkbox" class="chk" data-id="19"> Got it</label>
       <label class="queue"><input type="checkbox" class="pq" data-id="19" data-section="Finale"> &#9654; Queue</label>
@@ -684,7 +689,7 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
     <p class="title">Climactic finale lift <span class="rtag lead">lead</span><span class="sigbadge">&#9733; SIGNATURE</span></p>
     <p class="lyric inst">final swell</p>
     <p class="cap">The big finale lift — the picture moment — then lower toward the embrace. SIGNATURE LIFT.</p>
-    <p class="pnote"><b>Coach &amp; director:</b> This is the photo — sustain the height, chins up, breathe together; land soft and hold the gaze.</p>
+    <p class="pnote"><b>&#127775; Coaching:</b> This is the photo — sustain the height, chins up, breathe together; land soft and hold the gaze.</p>
     <div class="controls">
       <label class="got"><input type="checkbox" class="chk" data-id="20"> Got it</label>
       <label class="queue"><input type="checkbox" class="pq" data-id="20" data-section="Finale"> &#9654; Queue</label>
@@ -709,7 +714,7 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
     <p class="title">Final embrace &amp; bow <span class="rtag both">both</span></p>
     <p class="lyric inst">outro — music resolves</p>
     <p class="cap">Settle into the closing embrace and hold. The video&#x27;s branding cards play over the end.</p>
-    
+    <p class="pnote"><b>&#127775; Coaching:</b> Settle into the last embrace and HOLD — don&#x27;t break early. Let the music resolve; that stillness is the picture.</p>
     <div class="controls">
       <label class="got"><input type="checkbox" class="chk" data-id="21"> Got it</label>
       <label class="queue"><input type="checkbox" class="pq" data-id="21" data-section="Outro"> &#9654; Queue</label>
@@ -736,6 +741,7 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
     <video id="stageVid" controls playsinline preload="auto">
       <source src="clips/full.mp4" type="video/mp4">
     </video>
+    <span id="beatDot" class="beatdot"></span>
     <div class="stage-cap">
       <span id="stageBars"></span><span id="stageTitle"></span>
       <div id="stageLyric"></div>
@@ -980,7 +986,8 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
 
   // ---- beat metronome at HALF tempo (~56 BPM), phase-locked to the music ----
   var BPM=112.34, BEAT=60/(BPM/2), T0=0.549, BEAT0=T0-Math.floor(T0/BEAT)*BEAT;
-  var acx=null, srcNode=null, metroOn=false, nextBeat=0, metroTimer=null, mOffset=0;
+  var acx=null, metroOn=false, nextBeat=0, metroTimer=null, mOffset=0;
+  var beatDot=document.getElementById('beatDot');
   try{ mOffset=parseFloat(localStorage.getItem('ordMetroOffset'))||0; }catch(e){ mOffset=0; }
   var mOffEl=document.getElementById('mOff'), sOffEl=document.getElementById('sOff');
   function showOff(){ var s=(mOffset>=0?'+':'')+Math.round(mOffset*1000)+'ms'; if(mOffEl)mOffEl.textContent=s; if(sOffEl)sOffEl.textContent=s; }
@@ -988,19 +995,23 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
   function ensureAudio(){
     if(!acx){ try{acx=new (window.AudioContext||window.webkitAudioContext)();}catch(e){acx=null;} }
     if(acx&&acx.state==='suspended')acx.resume();
-    // route the video's audio through the SAME engine so clicks & music share one clock/latency
-    if(acx&&sv&&!srcNode){ try{srcNode=acx.createMediaElementSource(sv);srcNode.connect(acx.destination);}catch(e){srcNode=null;} }
   }
   function beatTime(i){ return BEAT0+i*BEAT; }
   function isDown(i){ return ((((i)%2)+2)%2)===0; }
+  function pulse(down){
+    if(!beatDot)return;
+    beatDot.classList.remove('hit','down'); void beatDot.offsetWidth;
+    beatDot.classList.add('hit'); if(down)beatDot.classList.add('down');
+  }
   function tick(when,down){
     var o=acx.createOscillator(), g=acx.createGain();
     o.type='square'; o.frequency.value=down?1760:1100;
     o.connect(g); g.connect(acx.destination);
     g.gain.setValueAtTime(0.0001,when);
-    g.gain.exponentialRampToValueAtTime(down?0.5:0.26,when+0.001);
-    g.gain.exponentialRampToValueAtTime(0.0001,when+0.05);
-    o.start(when); o.stop(when+0.06);
+    g.gain.exponentialRampToValueAtTime(down?0.6:0.34,when+0.001);
+    g.gain.exponentialRampToValueAtTime(0.0001,when+0.06);
+    o.start(when); o.stop(when+0.07);
+    setTimeout(function(){pulse(down);}, Math.max(0,(when-acx.currentTime)*1000));
   }
   function metroSched(){
     if(!metroOn||!acx||!stagePlaying||sv.paused)return;
