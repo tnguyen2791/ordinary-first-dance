@@ -928,11 +928,11 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
   stage.addEventListener('click',function(e){ if(e.target===stage)closeStage(); });
   document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&!stage.hidden)closeStage(); });
 
-  // ---- beat metronome, synced to the detected grid (112.35 BPM, downbeat at 0.557s) ----
-  var BPM=112.35, BEAT=60/BPM, T0=0.557, BEAT0=T0-Math.floor(T0/BEAT)*BEAT;
+  // ---- beat metronome at HALF the song tempo (~56 BPM: twice per bar, downbeat accented) ----
+  var BPM=112.35, BEAT=60/(BPM/2), T0=0.557, BEAT0=T0-Math.floor(T0/BEAT)*BEAT;
   var acx=null, metroOn=false, nextBeat=0, metroTimer=null;
   function beatTime(i){ return BEAT0+i*BEAT; }
-  function isDown(i){ return ((((i-1)%4)+4)%4)===0; }
+  function isDown(i){ return ((((i)%2)+2)%2)===0; }
   function tick(when,down){
     var o=acx.createOscillator(), g=acx.createGain();
     o.type='square'; o.frequency.value=down?1760:1100;
