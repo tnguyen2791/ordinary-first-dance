@@ -1,0 +1,28 @@
+{
+  "bpm": 112.35,
+  "barlen": 2.136,
+  "video_dur": 149.25,
+  "segments": [
+    {"id":"01","start":0.000,"end":9.100,"bars":"1–4","section":"Entrance","title":"Walk-on & meet","role":"both","sig":0,"lyric":"(instrumental intro)","cap":"Both walk on from opposite sides and meet in the center of the floor."},
+    {"id":"02","start":9.100,"end":17.650,"bars":"5–8","section":"Verse 1","title":"First hold & settle","role":"both","sig":0,"lyric":"This town's lost its faith","cap":"Hands join into closed position; settle face-to-face and find the pulse."},
+    {"id":"03","start":17.650,"end":26.190,"bars":"9–12","section":"Verse 1","title":"Closed-position sway","role":"both","sig":0,"lyric":"So if our time is running out","cap":"Gentle side-to-side sway with a slow clockwise drift; small traveling steps."},
+    {"id":"04","start":26.190,"end":30.460,"bars":"13–14","section":"Pre-chorus","title":"Open-out & underarm turn","role":"follow","sig":0,"lyric":"…a masterpiece — oh, my, my","cap":"He opens her to the \"V\" on a stationary raised arm; she opens out and turns underneath, back to face him."},
+    {"id":"05","start":30.460,"end":34.740,"bars":"15–16","section":"Pre-chorus","title":"Dress-flourish fan-out","role":"follow","sig":0,"lyric":"I take one look at you","cap":"Solo presentation: arms wide, gown spread — a picture beat."},
+    {"id":"06","start":34.740,"end":43.280,"bars":"17–20","section":"Pre-chorus","title":"Close embrace & sway","role":"both","sig":0,"lyric":"You take me out of the ordinary","cap":"Draw back together into a close embrace; sway with small quarter-turns."},
+    {"id":"07","start":43.280,"end":51.830,"bars":"21–24","section":"Chorus 1","title":"Sway with quarter-turns","role":"both","sig":0,"lyric":"On the edge of your knife, stayin' drunk on your vine","cap":"Continue the closed sway, rotating a little more as the chorus lands."},
+    {"id":"08","start":51.830,"end":60.370,"bars":"25–28","section":"Chorus 1","title":"Traveling rotation","role":"both","sig":0,"lyric":"So this world will be ordinary","cap":"Semi-closed hold rotating and traveling across the floor; the gown sweeps."},
+    {"id":"09","start":60.370,"end":64.640,"bars":"29–30","section":"Chorus 1","title":"Rotation into the line","role":"both","sig":0,"lyric":"Somethin' 'bout you, you can touch me to dust","cap":"The rotation gathers and opens toward the big extension."},
+    {"id":"10","start":64.640,"end":68.920,"bars":"31–32","section":"Chorus 1","title":"The reach & lunge (open line)","role":"both","sig":1,"lyric":"The angels up in the clouds are jealous…","cap":"Wide two-arm extension into a shared lunge — hold the shape, then reel back in. SIGNATURE POSE."},
+    {"id":"11","start":68.920,"end":77.460,"bars":"33–36","section":"Verse 2","title":"Reel in & promenade","role":"both","sig":0,"lyric":"…of what we found — hopeless hallelujah","cap":"Gather from the line back to hold, then step into a promenade walk."},
+    {"id":"12","start":77.460,"end":86.000,"bars":"37–40","section":"Verse 2","title":"Walk-around & underarm turn","role":"follow","sig":0,"lyric":"Hope, this side of heaven","cap":"Hand-to-hand, walking around each other with a calm underarm turn."},
+    {"id":"13","start":86.000,"end":94.550,"bars":"41–44","section":"Bridge","title":"Hand-to-hand walk-around","role":"both","sig":0,"lyric":"You take my breath away","cap":"Keep one point of connection; circle each other, breathing room before the build."},
+    {"id":"14","start":94.550,"end":103.090,"bars":"45–48","section":"Bridge","title":"Gather toward center","role":"both","sig":0,"lyric":"Oh, my, my — taking me out","cap":"Draw back together toward the center, weight settling for the build."},
+    {"id":"15","start":103.090,"end":111.640,"bars":"49–52","section":"Build","title":"Push-pull tension","role":"both","sig":0,"lyric":"I want you layin' me down…","cap":"Hand-to-hand push-pull; he sets his base as she commits her weight toward him."},
+    {"id":"16","start":111.640,"end":118.050,"bars":"53–55","section":"Lift 1","title":"Rotating pickup lift","role":"lead","sig":1,"lyric":"(instrumental swell — the lift)","cap":"Feet off the floor, gown cascading, rotating together. SIGNATURE LIFT — soft surface first, lift with legs."},
+    {"id":"17","start":118.050,"end":122.320,"bars":"56–57","section":"Lift 1","title":"Soft landing embrace","role":"both","sig":0,"lyric":"(instrumental)","cap":"Lower gently into an embrace and recover the frame."},
+    {"id":"18","start":122.320,"end":126.590,"bars":"58–59","section":"Finale","title":"Open-arms presentation","role":"both","sig":0,"lyric":"The angels up in the clouds","cap":"Side-by-side, big arms, chin up — present to the room."},
+    {"id":"19","start":126.590,"end":130.860,"bars":"60–61","section":"Finale","title":"Solo spin away","role":"follow","sig":0,"lyric":"…up in the clouds","cap":"Follow spins out and back, setting up the final lift."},
+    {"id":"20","start":130.860,"end":135.140,"bars":"62–63","section":"Finale","title":"Climactic finale lift","role":"lead","sig":1,"lyric":"(final swell)","cap":"The big finale lift — the picture moment — then lower toward the embrace. SIGNATURE LIFT."},
+    {"id":"21","start":135.140,"end":149.250,"bars":"64–70","section":"Outro","title":"Final embrace & bow","role":"both","sig":0,"lyric":"(outro — music resolves)","cap":"Settle into the closing embrace and hold. The video's branding cards play over the end."}
+  ]
+}
