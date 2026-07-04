@@ -119,6 +119,9 @@ h1 .amp{color:var(--rose)}
 #stageBars::before{content:"\266A  "}
 #stageTitle{font-weight:600;margin-top:2px}
 #stageLyric{font-family:Georgia,serif;font-style:italic;color:#e6b9b4}
+.stage-ctrls{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center;color:#eadfd2;font-size:.82rem}
+.sctl{border:0;background:rgba(255,255,255,.16);color:#fff;padding:8px 16px;border-radius:999px;font-weight:600;cursor:pointer}
+.sctl.on{background:var(--gold)}
 .stage-close{border:0;background:rgba(255,255,255,.16);color:#fff;padding:9px 18px;border-radius:999px;font-weight:600;cursor:pointer}
 .stage-close:hover{background:rgba(255,255,255,.26)}
 footer{margin-top:44px;padding:22px;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem}
@@ -157,6 +160,18 @@ footer ul{margin:6px 0 0;padding-left:18px}footer li{margin:4px 0}
 .ntools button:hover,.impbtn:hover{color:var(--ink);border-color:var(--muted)}
 .impbtn{display:inline-flex;align-items:center}
 .nstamp{font-size:.72rem;color:#b0a596;margin-top:4px;min-height:.9em}
+.secmenu{display:none;position:fixed;top:74px;right:16px;width:198px;max-height:calc(100vh - 150px);overflow:auto;
+  background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 8px 26px rgba(60,45,30,.14);padding:12px;flex-direction:column;gap:6px;z-index:40}
+.sm-head{font-family:Georgia,serif;color:var(--gold);text-transform:uppercase;letter-spacing:1px;font-size:.72rem;margin-bottom:4px}
+.secToggle{display:flex;justify-content:space-between;align-items:center;gap:8px;border:1px solid var(--line);background:#fff;border-radius:8px;padding:7px 10px;font-size:.82rem;color:var(--ink);cursor:pointer;text-align:left}
+.secToggle em{font-style:normal;color:var(--muted);font-size:.72rem}
+.secToggle:hover{border-color:var(--muted)}
+.secToggle.some{border-color:var(--gold);background:#faf5ec}
+.secToggle.on{background:var(--gold);color:#fff;border-color:var(--gold)}
+.secToggle.on em{color:#f4e7d0}
+.sm-clear{margin-top:6px;border:1px solid var(--line);background:#fff;border-radius:8px;padding:7px;font-size:.8rem;color:var(--muted);cursor:pointer}
+.sm-clear:hover{color:var(--ink);border-color:var(--muted)}
+@media(min-width:1200px){ .secmenu{display:flex} body{padding-right:226px} }
 </style>
 </head>
 <body>
@@ -230,7 +245,7 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
     
     <div class="controls">
       <label class="got"><input type="checkbox" class="chk" data-id="01"> Got it</label>
-      <label class="queue"><input type="checkbox" class="pq" data-id="01"> &#9654; Queue</label>
+      <label class="queue"><input type="checkbox" class="pq" data-id="01" data-section="Entrance"> &#9654; Queue</label>
     </div>
     <textarea class="cardnote" data-id="01" rows="2" placeholder="Notes for this phrase — counts, fixes, reminders…"></textarea>
     <div class="nstamp cardstamp" data-id="01"></div>
@@ -255,7 +270,7 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
     
     <div class="controls">
       <label class="got"><input type="checkbox" class="chk" data-id="02"> Got it</label>
-      <label class="queue"><input type="checkbox" class="pq" data-id="02"> &#9654; Queue</label>
+      <label class="queue"><input type="checkbox" class="pq" data-id="02" data-section="Verse 1"> &#9654; Queue</label>
     </div>
     <textarea class="cardnote" data-id="02" rows="2" placeholder="Notes for this phrase — counts, fixes, reminders…"></textarea>
     <div class="nstamp cardstamp" data-id="02"></div>
@@ -277,7 +292,7 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
     
     <div class="controls">
       <label class="got"><input type="checkbox" class="chk" data-id="03"> Got it</label>
-      <label class="queue"><input type="checkbox" class="pq" data-id="03"> &#9654; Queue</label>
+      <label class="queue"><input type="checkbox" class="pq" data-id="03" data-section="Verse 1"> &#9654; Queue</label>
     </div>
     <textarea class="cardnote" data-id="03" rows="2" placeholder="Notes for this phrase — counts, fixes, reminders…"></textarea>
     <div class="nstamp cardstamp" data-id="03"></div>
@@ -302,7 +317,7 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
     
     <div class="controls">
       <label class="got"><input type="checkbox" class="chk" data-id="04"> Got it</label>
-      <label class="queue"><input type="checkbox" class="pq" data-id="04"> &#9654; Queue</label>
+      <label class="queue"><input type="checkbox" class="pq" data-id="04" data-section="Pre-chorus"> &#9654; Queue</label>
     </div>
     <textarea class="cardnote" data-id="04" rows="2" placeholder="Notes for this phrase — counts, fixes, reminders…"></textarea>
     <div class="nstamp cardstamp" data-id="04"></div>
@@ -324,7 +339,7 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
     
     <div class="controls">
       <label class="got"><input type="checkbox" class="chk" data-id="05"> Got it</label>
-      <label class="queue"><input type="checkbox" class="pq" data-id="05"> &#9654; Queue</label>
+      <label class="queue"><input type="checkbox" class="pq" data-id="05" data-section="Pre-chorus"> &#9654; Queue</label>
     </div>
     <textarea class="cardnote" data-id="05" rows="2" placeholder="Notes for this phrase — counts, fixes, reminders…"></textarea>
     <div class="nstamp cardstamp" data-id="05"></div>
@@ -346,7 +361,7 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
     
     <div class="controls">
       <label class="got"><input type="checkbox" class="chk" data-id="06"> Got it</label>
-      <label class="queue"><input type="checkbox" class="pq" data-id="06"> &#9654; Queue</label>
+      <label class="queue"><input type="checkbox" class="pq" data-id="06" data-section="Pre-chorus"> &#9654; Queue</label>
     </div>
     <textarea class="cardnote" data-id="06" rows="2" placeholder="Notes for this phrase — counts, fixes, reminders…"></textarea>
     <div class="nstamp cardstamp" data-id="06"></div>
@@ -371,7 +386,7 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
     
     <div class="controls">
       <label class="got"><input type="checkbox" class="chk" data-id="07"> Got it</label>
-      <label class="queue"><input type="checkbox" class="pq" data-id="07"> &#9654; Queue</label>
+      <label class="queue"><input type="checkbox" class="pq" data-id="07" data-section="Chorus 1"> &#9654; Queue</label>
     </div>
     <textarea class="cardnote" data-id="07" rows="2" placeholder="Notes for this phrase — counts, fixes, reminders…"></textarea>
     <div class="nstamp cardstamp" data-id="07"></div>
@@ -393,7 +408,7 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
     
     <div class="controls">
       <label class="got"><input type="checkbox" class="chk" data-id="08"> Got it</label>
-      <label class="queue"><input type="checkbox" class="pq" data-id="08"> &#9654; Queue</label>
+      <label class="queue"><input type="checkbox" class="pq" data-id="08" data-section="Chorus 1"> &#9654; Queue</label>
     </div>
     <textarea class="cardnote" data-id="08" rows="2" placeholder="Notes for this phrase — counts, fixes, reminders…"></textarea>
     <div class="nstamp cardstamp" data-id="08"></div>
@@ -415,7 +430,7 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
     
     <div class="controls">
       <label class="got"><input type="checkbox" class="chk" data-id="09"> Got it</label>
-      <label class="queue"><input type="checkbox" class="pq" data-id="09"> &#9654; Queue</label>
+      <label class="queue"><input type="checkbox" class="pq" data-id="09" data-section="Chorus 1"> &#9654; Queue</label>
     </div>
     <textarea class="cardnote" data-id="09" rows="2" placeholder="Notes for this phrase — counts, fixes, reminders…"></textarea>
     <div class="nstamp cardstamp" data-id="09"></div>
@@ -437,7 +452,7 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
     <p class="pnote"><b>Coach &amp; director:</b> Commit weight into the counterbalance and breathe out on the extension; eyes reach past your fingertips, not down.</p>
     <div class="controls">
       <label class="got"><input type="checkbox" class="chk" data-id="10"> Got it</label>
-      <label class="queue"><input type="checkbox" class="pq" data-id="10"> &#9654; Queue</label>
+      <label class="queue"><input type="checkbox" class="pq" data-id="10" data-section="Chorus 1"> &#9654; Queue</label>
     </div>
     <textarea class="cardnote" data-id="10" rows="2" placeholder="Notes for this phrase — counts, fixes, reminders…"></textarea>
     <div class="nstamp cardstamp" data-id="10"></div>
@@ -462,7 +477,7 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
     
     <div class="controls">
       <label class="got"><input type="checkbox" class="chk" data-id="11"> Got it</label>
-      <label class="queue"><input type="checkbox" class="pq" data-id="11"> &#9654; Queue</label>
+      <label class="queue"><input type="checkbox" class="pq" data-id="11" data-section="Verse 2"> &#9654; Queue</label>
     </div>
     <textarea class="cardnote" data-id="11" rows="2" placeholder="Notes for this phrase — counts, fixes, reminders…"></textarea>
     <div class="nstamp cardstamp" data-id="11"></div>
@@ -484,7 +499,7 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
     
     <div class="controls">
       <label class="got"><input type="checkbox" class="chk" data-id="12"> Got it</label>
-      <label class="queue"><input type="checkbox" class="pq" data-id="12"> &#9654; Queue</label>
+      <label class="queue"><input type="checkbox" class="pq" data-id="12" data-section="Verse 2"> &#9654; Queue</label>
     </div>
     <textarea class="cardnote" data-id="12" rows="2" placeholder="Notes for this phrase — counts, fixes, reminders…"></textarea>
     <div class="nstamp cardstamp" data-id="12"></div>
@@ -509,7 +524,7 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
     
     <div class="controls">
       <label class="got"><input type="checkbox" class="chk" data-id="13"> Got it</label>
-      <label class="queue"><input type="checkbox" class="pq" data-id="13"> &#9654; Queue</label>
+      <label class="queue"><input type="checkbox" class="pq" data-id="13" data-section="Bridge"> &#9654; Queue</label>
     </div>
     <textarea class="cardnote" data-id="13" rows="2" placeholder="Notes for this phrase — counts, fixes, reminders…"></textarea>
     <div class="nstamp cardstamp" data-id="13"></div>
@@ -531,7 +546,7 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
     
     <div class="controls">
       <label class="got"><input type="checkbox" class="chk" data-id="14"> Got it</label>
-      <label class="queue"><input type="checkbox" class="pq" data-id="14"> &#9654; Queue</label>
+      <label class="queue"><input type="checkbox" class="pq" data-id="14" data-section="Bridge"> &#9654; Queue</label>
     </div>
     <textarea class="cardnote" data-id="14" rows="2" placeholder="Notes for this phrase — counts, fixes, reminders…"></textarea>
     <div class="nstamp cardstamp" data-id="14"></div>
@@ -556,7 +571,7 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
     
     <div class="controls">
       <label class="got"><input type="checkbox" class="chk" data-id="15"> Got it</label>
-      <label class="queue"><input type="checkbox" class="pq" data-id="15"> &#9654; Queue</label>
+      <label class="queue"><input type="checkbox" class="pq" data-id="15" data-section="Build"> &#9654; Queue</label>
     </div>
     <textarea class="cardnote" data-id="15" rows="2" placeholder="Notes for this phrase — counts, fixes, reminders…"></textarea>
     <div class="nstamp cardstamp" data-id="15"></div>
@@ -581,7 +596,7 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
     <p class="pnote"><b>Coach &amp; director:</b> Lift from the legs, not the back; Follow holds frame and spots the window — trust over tension.</p>
     <div class="controls">
       <label class="got"><input type="checkbox" class="chk" data-id="16"> Got it</label>
-      <label class="queue"><input type="checkbox" class="pq" data-id="16"> &#9654; Queue</label>
+      <label class="queue"><input type="checkbox" class="pq" data-id="16" data-section="Lift 1"> &#9654; Queue</label>
     </div>
     <textarea class="cardnote" data-id="16" rows="2" placeholder="Notes for this phrase — counts, fixes, reminders…"></textarea>
     <div class="nstamp cardstamp" data-id="16"></div>
@@ -603,7 +618,7 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
     
     <div class="controls">
       <label class="got"><input type="checkbox" class="chk" data-id="17"> Got it</label>
-      <label class="queue"><input type="checkbox" class="pq" data-id="17"> &#9654; Queue</label>
+      <label class="queue"><input type="checkbox" class="pq" data-id="17" data-section="Lift 1"> &#9654; Queue</label>
     </div>
     <textarea class="cardnote" data-id="17" rows="2" placeholder="Notes for this phrase — counts, fixes, reminders…"></textarea>
     <div class="nstamp cardstamp" data-id="17"></div>
@@ -628,7 +643,7 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
     
     <div class="controls">
       <label class="got"><input type="checkbox" class="chk" data-id="18"> Got it</label>
-      <label class="queue"><input type="checkbox" class="pq" data-id="18"> &#9654; Queue</label>
+      <label class="queue"><input type="checkbox" class="pq" data-id="18" data-section="Finale"> &#9654; Queue</label>
     </div>
     <textarea class="cardnote" data-id="18" rows="2" placeholder="Notes for this phrase — counts, fixes, reminders…"></textarea>
     <div class="nstamp cardstamp" data-id="18"></div>
@@ -650,7 +665,7 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
     
     <div class="controls">
       <label class="got"><input type="checkbox" class="chk" data-id="19"> Got it</label>
-      <label class="queue"><input type="checkbox" class="pq" data-id="19"> &#9654; Queue</label>
+      <label class="queue"><input type="checkbox" class="pq" data-id="19" data-section="Finale"> &#9654; Queue</label>
     </div>
     <textarea class="cardnote" data-id="19" rows="2" placeholder="Notes for this phrase — counts, fixes, reminders…"></textarea>
     <div class="nstamp cardstamp" data-id="19"></div>
@@ -672,7 +687,7 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
     <p class="pnote"><b>Coach &amp; director:</b> This is the photo — sustain the height, chins up, breathe together; land soft and hold the gaze.</p>
     <div class="controls">
       <label class="got"><input type="checkbox" class="chk" data-id="20"> Got it</label>
-      <label class="queue"><input type="checkbox" class="pq" data-id="20"> &#9654; Queue</label>
+      <label class="queue"><input type="checkbox" class="pq" data-id="20" data-section="Finale"> &#9654; Queue</label>
     </div>
     <textarea class="cardnote" data-id="20" rows="2" placeholder="Notes for this phrase — counts, fixes, reminders…"></textarea>
     <div class="nstamp cardstamp" data-id="20"></div>
@@ -697,7 +712,7 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
     
     <div class="controls">
       <label class="got"><input type="checkbox" class="chk" data-id="21"> Got it</label>
-      <label class="queue"><input type="checkbox" class="pq" data-id="21"> &#9654; Queue</label>
+      <label class="queue"><input type="checkbox" class="pq" data-id="21" data-section="Outro"> &#9654; Queue</label>
     </div>
     <textarea class="cardnote" data-id="21" rows="2" placeholder="Notes for this phrase — counts, fixes, reminders…"></textarea>
     <div class="nstamp cardstamp" data-id="21"></div>
@@ -725,9 +740,17 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
       <span id="stageBars"></span><span id="stageTitle"></span>
       <div id="stageLyric"></div>
     </div>
+    <div class="stage-ctrls">
+      <button id="sMetro" class="sctl">&#9835; Beat: off</button>
+      <span class="mnudge" title="Nudge the beat earlier / later until it locks onto the music">
+        <button id="sMinus" type="button">&minus;</button><span id="sOff">+0ms</span><button id="sPlus" type="button">+</button>
+      </span>
+    </div>
     <button class="stage-close" id="stageClose">&times; Close</button>
   </div>
 </div>
+
+<aside class="secmenu" id="secmenu"><div class="sm-head">Add to queue</div><button class="secToggle" data-section="Entrance">Entrance <em>1</em></button><button class="secToggle" data-section="Verse 1">Verse 1 <em>2</em></button><button class="secToggle" data-section="Pre-chorus">Pre-chorus <em>3</em></button><button class="secToggle" data-section="Chorus 1">Chorus 1 <em>4</em></button><button class="secToggle" data-section="Verse 2">Verse 2 <em>2</em></button><button class="secToggle" data-section="Bridge">Bridge <em>2</em></button><button class="secToggle" data-section="Build">Build <em>1</em></button><button class="secToggle" data-section="Lift 1">Lift 1 <em>2</em></button><button class="secToggle" data-section="Finale">Finale <em>3</em></button><button class="secToggle" data-section="Outro">Outro <em>1</em></button><button class="sm-clear" id="clearQueue">Clear queue</button></aside>
 
 <div class="playbar" id="playbar">
   <button class="primary" id="playSel">&#9654; Play queued (<span id="qcount">0</span>)</button>
@@ -873,8 +896,27 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
   });
   function updateCount(){qcount.textContent=pqs.filter(function(c){return c.checked;}).length;}
   pqs.forEach(function(c){c.addEventListener('change',function(){
-    c.closest('.card').classList.toggle('queued',c.checked);updateCount();
+    c.closest('.card').classList.toggle('queued',c.checked);updateCount();refreshSecMenu();
   });});
+  // ---- section quick-queue menu ----
+  var secToggles=Array.prototype.slice.call(document.querySelectorAll('.secToggle'));
+  function pqsFor(sec){ return pqs.filter(function(c){return c.dataset.section===sec;}); }
+  function setPq(c,val){ if(c.checked!==val){ c.checked=val; c.dispatchEvent(new Event('change')); } }
+  function refreshSecMenu(){
+    secToggles.forEach(function(b){
+      var g=pqsFor(b.dataset.section);
+      var on=g.length&&g.every(function(c){return c.checked;});
+      var some=g.some(function(c){return c.checked;});
+      b.classList.toggle('on',on); b.classList.toggle('some',some&&!on);
+    });
+  }
+  secToggles.forEach(function(b){ b.addEventListener('click',function(){
+    var g=pqsFor(b.dataset.section);
+    var allOn=g.length&&g.every(function(c){return c.checked;});
+    g.forEach(function(c){ setPq(c,!allOn); }); refreshSecMenu();
+  }); });
+  var cq=document.getElementById('clearQueue');
+  if(cq)cq.addEventListener('click',function(){ pqs.forEach(function(c){ setPq(c,false); }); refreshSecMenu(); });
   allVids.forEach(function(v){v.addEventListener('play',function(){
     v.playbackRate=rate; lastId=v.closest('.card').dataset.id;
   });});
@@ -930,7 +972,8 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
   });
   document.getElementById('playAll').addEventListener('click',function(){ openStage(SEGS.map(function(s){return s.id;})); });
   document.getElementById('replay').addEventListener('click',function(){ openStage([lastId||SEGS[0].id]); });
-  document.getElementById('stopPlay').addEventListener('click',closeStage);
+  function stopEverything(){ closeStage(); allVids.forEach(function(v){ try{v.pause();}catch(e){} }); }
+  document.getElementById('stopPlay').addEventListener('click',stopEverything);
   document.getElementById('stageClose').addEventListener('click',closeStage);
   stage.addEventListener('click',function(e){ if(e.target===stage)closeStage(); });
   document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&!stage.hidden)closeStage(); });
@@ -939,8 +982,8 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
   var BPM=112.34, BEAT=60/(BPM/2), T0=0.549, BEAT0=T0-Math.floor(T0/BEAT)*BEAT;
   var acx=null, srcNode=null, metroOn=false, nextBeat=0, metroTimer=null, mOffset=0;
   try{ mOffset=parseFloat(localStorage.getItem('ordMetroOffset'))||0; }catch(e){ mOffset=0; }
-  var mOffEl=document.getElementById('mOff');
-  function showOff(){ if(mOffEl)mOffEl.textContent=(mOffset>=0?'+':'')+Math.round(mOffset*1000)+'ms'; }
+  var mOffEl=document.getElementById('mOff'), sOffEl=document.getElementById('sOff');
+  function showOff(){ var s=(mOffset>=0?'+':'')+Math.round(mOffset*1000)+'ms'; if(mOffEl)mOffEl.textContent=s; if(sOffEl)sOffEl.textContent=s; }
   showOff();
   function ensureAudio(){
     if(!acx){ try{acx=new (window.AudioContext||window.webkitAudioContext)();}catch(e){acx=null;} }
@@ -968,18 +1011,23 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
       tick(when,isDown(nextBeat)); nextBeat++;
     }
   }
-  document.getElementById('metro').addEventListener('change',function(e){
-    metroOn=e.target.checked;
-    if(metroOn){ ensureAudio();
+  var metroChk=document.getElementById('metro'), sMetro=document.getElementById('sMetro');
+  function setMetro(on){
+    metroOn=on;
+    if(metroChk)metroChk.checked=on;
+    if(sMetro){ sMetro.textContent='\u266A Beat: '+(on?'on':'off'); sMetro.classList.toggle('on',on); }
+    if(on){ ensureAudio();
       var ct=(sv&&sv.currentTime)||0; nextBeat=Math.ceil((ct-BEAT0)/BEAT);
       if(!metroTimer)metroTimer=setInterval(metroSched,25);
     } else if(metroTimer){ clearInterval(metroTimer); metroTimer=null; }
+  }
+  if(metroChk)metroChk.addEventListener('change',function(e){ setMetro(e.target.checked); });
+  if(sMetro)sMetro.addEventListener('click',function(){ setMetro(!metroOn); });
+  function nudge(d){ mOffset=Math.max(-0.6,Math.min(0.6,mOffset+d)); try{localStorage.setItem('ordMetroOffset',mOffset);}catch(e){} showOff(); }
+  [['mPlus',0.02],['mMinus',-0.02],['sPlus',0.02],['sMinus',-0.02]].forEach(function(p){
+    var el=document.getElementById(p[0]); if(el)el.addEventListener('click',function(){nudge(p[1]);});
   });
-  function nudge(d){ mOffset=Math.max(-0.3,Math.min(0.3,mOffset+d)); try{localStorage.setItem('ordMetroOffset',mOffset);}catch(e){} showOff(); }
-  var mp=document.getElementById('mPlus'), mm=document.getElementById('mMinus');
-  if(mp)mp.addEventListener('click',function(){nudge(0.01);});
-  if(mm)mm.addEventListener('click',function(){nudge(-0.01);});
-  updateCount();
+  updateCount(); refreshSecMenu();
   refresh();
 })();
 </script>
