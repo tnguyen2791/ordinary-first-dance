@@ -165,6 +165,14 @@ footer ul{margin:6px 0 0;padding-left:18px}footer li{margin:4px 0}
 .ntools button:hover,.impbtn:hover{color:var(--ink);border-color:var(--muted)}
 .impbtn{display:inline-flex;align-items:center}
 .nstamp{font-size:.72rem;color:#b0a596;margin-top:4px;min-height:.9em}
+.noteslog{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+.logitem{background:#faf6ef;border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:8px;padding:8px 10px}
+.logmeta{display:flex;justify-content:space-between;align-items:center;font-size:.72rem;color:var(--muted);margin-bottom:3px}
+.logdel{border:0;background:transparent;color:var(--muted);cursor:pointer;font-size:1.05rem;line-height:1;padding:0 2px}
+.logdel:hover{color:#c0392b}
+.logtext{font-size:.92rem;color:var(--ink);white-space:pre-wrap}
+.savenote{margin-top:8px;border:0;background:var(--gold);color:#fff;border-radius:8px;padding:9px 18px;font-weight:600;font-size:.88rem;cursor:pointer}
+.savenote:hover{background:#c39c63}
 .secmenu{display:none;position:fixed;top:74px;right:16px;width:198px;max-height:calc(100vh - 150px);overflow:auto;
   background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 8px 26px rgba(60,45,30,.14);padding:12px;flex-direction:column;gap:6px;z-index:40}
 .sm-head{font-family:Georgia,serif;color:var(--gold);text-transform:uppercase;letter-spacing:1px;font-size:.72rem;margin-bottom:4px}
@@ -228,8 +236,9 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
       <label class="impbtn">&#8593; Load<input type="file" id="impFile" accept="application/json,.json" hidden></label>
     </span>
   </div>
-  <textarea id="globalnotes" placeholder="Overall notes — problem spots, who leads what, what to drill next practice, questions for the instructor…"></textarea>
-  <div class="nstamp" id="gStamp"></div>
+  <div class="noteslog" id="noteslog"></div>
+  <textarea id="globalnotes" placeholder="Type a note — problem spots, counts, what to drill… then Save (or ⌘/Ctrl+Enter)"></textarea>
+  <button id="saveNote" class="savenote">&#43; Save note</button>
 </div>
 
 <div class="sectionhead">Entrance</div>
@@ -829,17 +838,32 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
   // ---- notes (autosave, timestamped) + export/import ----
   var NKEY='ordinaryFirstDanceNotes', CKEY='ordinaryFirstDanceCardNotes';
   function fmt(ms){ if(!ms)return''; try{return new Date(ms).toLocaleString([],{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});}catch(e){return'';} }
-  var gn=document.getElementById('globalnotes'), gsave=document.getElementById('gnsave'), gStamp=document.getElementById('gStamp'), gt;
-  var gobj={t:'',ts:0};
-  (function(){ var raw=localStorage.getItem(NKEY);
-    if(raw){ try{var p=JSON.parse(raw); gobj=(p&&typeof p==='object'&&'t' in p)?p:{t:(typeof p==='string'?p:raw),ts:0};}catch(e){gobj={t:raw,ts:0};} } })();
-  gn.value=gobj.t||''; gStamp.textContent=gobj.ts?('saved '+fmt(gobj.ts)):'';
-  function flashG(){gsave.textContent='saved';gsave.classList.add('show');clearTimeout(gt);gt=setTimeout(function(){gsave.classList.remove('show');},1200);}
-  gn.addEventListener('input',function(){
-    gobj={t:gn.value,ts:Date.now()};
-    try{localStorage.setItem(NKEY,JSON.stringify(gobj))}catch(e){}
-    gStamp.textContent='saved '+fmt(gobj.ts); flashG();
-  });
+  var gn=document.getElementById('globalnotes'), gsave=document.getElementById('gnsave'), gt;
+  var LOGKEY='ordNotesLog', noteslog=[];
+  try{ noteslog=JSON.parse(localStorage.getItem(LOGKEY))||[]; }catch(e){ noteslog=[]; }
+  // migrate a previously autosaved single note into the log
+  try{ var _old=localStorage.getItem(NKEY);
+    if(_old&&!noteslog.length){ var _p; try{_p=JSON.parse(_old);}catch(e){_p={t:_old,ts:0};}
+      if(_p&&_p.t)noteslog.push({t:_p.t,ts:_p.ts||0}); } }catch(e){}
+  function saveLog(){ try{localStorage.setItem(LOGKEY,JSON.stringify(noteslog));}catch(e){} }
+  function renderLog(){
+    var el=document.getElementById('noteslog'); if(!el)return; el.innerHTML='';
+    noteslog.forEach(function(n,idx){
+      var d=document.createElement('div'); d.className='logitem';
+      var meta=document.createElement('div'); meta.className='logmeta';
+      var t=document.createElement('span'); t.textContent=n.ts?fmt(n.ts):''; meta.appendChild(t);
+      var del=document.createElement('button'); del.className='logdel'; del.textContent='\u00d7'; del.title='Delete note';
+      del.addEventListener('click',function(){ noteslog.splice(idx,1); saveLog(); renderLog(); });
+      meta.appendChild(del);
+      var tx=document.createElement('div'); tx.className='logtext'; tx.textContent=n.t;
+      d.appendChild(meta); d.appendChild(tx); el.appendChild(d);
+    });
+  }
+  renderLog();
+  function flashG(){gsave.textContent='saved';gsave.classList.add('show');clearTimeout(gt);gt=setTimeout(function(){gsave.classList.remove('show');},1400);}
+  function doSaveNote(){ var v=(gn.value||'').trim(); if(!v)return; noteslog.push({t:v,ts:Date.now()}); saveLog(); renderLog(); gn.value=''; flashG(); }
+  var snBtn=document.getElementById('saveNote'); if(snBtn)snBtn.addEventListener('click',doSaveNote);
+  gn.addEventListener('keydown',function(e){ if((e.metaKey||e.ctrlKey)&&e.key==='Enter'){e.preventDefault();doSaveNote();} });
   var cstore={};
   try{ var craw=localStorage.getItem(CKEY); if(craw)cstore=JSON.parse(craw)||{}; }catch(e){cstore={}}
   Array.prototype.slice.call(document.querySelectorAll('.cardnote')).forEach(function(ta){
@@ -862,13 +886,13 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
   document.getElementById('expJson').addEventListener('click',function(){
     var prog={}; try{prog=JSON.parse(localStorage.getItem(KEY))||{}}catch(e){}
     download('ordinary-notes-'+datestamp()+'.json',
-      JSON.stringify({app:'ordinary-first-dance',version:2,exportedAt:new Date().toISOString(),global:gobj,cards:cstore,progress:prog},null,2),
+      JSON.stringify({app:'ordinary-first-dance',version:3,exportedAt:new Date().toISOString(),notes:noteslog,cards:cstore,progress:prog},null,2),
       'application/json');
   });
   document.getElementById('expMd').addEventListener('click',function(){
     var prog={}; try{prog=JSON.parse(localStorage.getItem(KEY))||{}}catch(e){}
     var L=['# Ordinary — First Dance · notes','','_Exported '+new Date().toLocaleString()+'_',''];
-    if(gobj.t){L.push('## Overall',gobj.t,gobj.ts?('_saved '+fmt(gobj.ts)+'_'):'','');}
+    if(noteslog.length){ L.push('## Notes',''); noteslog.forEach(function(n){L.push('- '+n.t+(n.ts?'  _('+fmt(n.ts)+')_':''));}); L.push(''); }
     L.push('## Per-phrase notes','');
     SEGS.forEach(function(s){ var r=cstore[s.id]; if(r&&r.t){
       L.push('### '+s.id+' · Bars '+s.bars+' · '+s.title+(prog[s.id]?' ✓':''));
@@ -882,7 +906,8 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
   document.getElementById('impFile').addEventListener('change',function(e){
     var f=e.target.files[0]; if(!f)return; var r=new FileReader();
     r.onload=function(){ try{ var d=JSON.parse(r.result);
-      if(d.global)localStorage.setItem(NKEY,JSON.stringify(d.global));
+      if(d.notes)localStorage.setItem(LOGKEY,JSON.stringify(d.notes));
+      else if(d.global&&d.global.t)localStorage.setItem(LOGKEY,JSON.stringify([d.global]));
       if(d.cards)localStorage.setItem(CKEY,JSON.stringify(d.cards));
       if(d.progress)localStorage.setItem(KEY,JSON.stringify(d.progress));
       alert('Notes loaded — reloading.'); location.reload();
@@ -986,10 +1011,10 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
 
   // ---- beat metronome at HALF tempo (~56 BPM), phase-locked to the music ----
   var BPM=112.34, BEAT=60/(BPM/2), T0=0.549, BEAT0=T0-Math.floor(T0/BEAT)*BEAT;
-  var acx=null, metroOn=false, nextBeat=0, metroTimer=null, mOffset=-0.16;
+  var acx=null, metroOn=false, nextBeat=0, metroTimer=null, mOffset=0, LAT=-0.16;
   var beatDot=document.getElementById('beatDot');
-  try{ var _mv=localStorage.getItem('ordMetroOffset'); if(_mv!==null&&_mv!=='')mOffset=parseFloat(_mv); }catch(e){}
-  if(isNaN(mOffset))mOffset=-0.16;
+  try{ var _mv=localStorage.getItem('ordMetroOffset2'); if(_mv!==null&&_mv!=='')mOffset=parseFloat(_mv); }catch(e){}
+  if(isNaN(mOffset))mOffset=0;
   var mOffEl=document.getElementById('mOff'), sOffEl=document.getElementById('sOff');
   function showOff(){ var s=(mOffset>=0?'+':'')+Math.round(mOffset*1000)+'ms'; if(mOffEl)mOffEl.textContent=s; if(sOffEl)sOffEl.textContent=s; }
   showOff();
@@ -1019,7 +1044,7 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
     var ct=sv.currentTime, rate=sv.playbackRate||1, la=0.15;
     if(beatTime(nextBeat)<ct-0.25||beatTime(nextBeat)>ct+2){ nextBeat=Math.ceil((ct-BEAT0)/BEAT); }
     while(beatTime(nextBeat)<=ct+la){
-      var when=acx.currentTime+Math.max(0,(beatTime(nextBeat)-ct)/rate+mOffset);
+      var when=acx.currentTime+Math.max(0,(beatTime(nextBeat)-ct)/rate+LAT+mOffset);
       tick(when,isDown(nextBeat)); nextBeat++;
     }
   }
@@ -1035,7 +1060,7 @@ back-to-back; or <b>Play all</b> for the whole dance end-to-end.</div>
   }
   if(metroChk)metroChk.addEventListener('change',function(e){ setMetro(e.target.checked); });
   if(sMetro)sMetro.addEventListener('click',function(){ setMetro(!metroOn); });
-  function nudge(d){ mOffset=Math.max(-0.6,Math.min(0.6,mOffset+d)); try{localStorage.setItem('ordMetroOffset',mOffset);}catch(e){} showOff(); }
+  function nudge(d){ mOffset=Math.max(-0.6,Math.min(0.6,mOffset+d)); try{localStorage.setItem('ordMetroOffset2',mOffset);}catch(e){} showOff(); }
   [['mPlus',0.02],['mMinus',-0.02],['sPlus',0.02],['sMinus',-0.02]].forEach(function(p){
     var el=document.getElementById(p[0]); if(el)el.addEventListener('click',function(){nudge(p[1]);});
   });
